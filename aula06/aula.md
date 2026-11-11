@@ -219,5 +219,46 @@ Na média ponderada, a importância (peso) dos valores pode variar. Nesse caso, 
 x̄ₚ = (Σ xᵢ · wᵢ) / Σ wᵢ
 
 # exemplo
+avaliação | nota | peso
+prova | 8.0 | 3.0
+trabalho | 7.0 | 2.0
+projeto | 10.0 | 5.0
 
+media_ponderada = (8*3) + (7*2) + (10*5) / (3+2+5) = 88/10 = 8.8
+```
+
+Em python, use a função `zip()` para unir uma lista de elementos com uma lista de pesos. Aplicando a multiplicação e a soma, conseguimos calcular a média ponderada sem depender de pacotes externos.
+
+```
+# Exemplo em Python estruturado
+notas = [8, 7, 10]
+pesos = [3, 2, 5]
+
+# Utilizando compreensão de lista e zip()
+numerador = sum(
+ nota * peso
+ for nota, peso in zip(notas, pesos)
+)
+
+denominador = sum(pesos)
+media_ponderada = numerador / denominador
+
+print(media_pond) # Saída esperada: 8.8
+```
+
+Já a biblioteca NumPy oferece um método `average()` específico para média ponderada. Ele usa o parâmetro `weights` para associar uma lista de valores a uma lista de pesos. É considerado um padrão para ciência de dados, *machine learning* e processamento de matrizes multidimensionais.
+
+```
+import numpy as np
+
+notas = [8, 7, 10]
+pesos = [3, 2, 5]
+
+# Utilizando a função np.average()
+media_pond = np.average(
+ notas,
+ weights=pesos
+)
+
+print(media_pond) # Saída esperada: 8.8
 ```
