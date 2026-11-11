@@ -83,7 +83,7 @@ df = pd.DataFrame(dados)
 for coluna in df.columns:
     print(f'=== Análise Estatística | {coluna} ===')
     # monta uma Series
-    series = pd.Series(coluna)
+    series = df[coluna]
     # calcula frequências
     frq_abs = series.value_counts().sort_index()
     frq_rel = frq_abs / len(series)
@@ -94,9 +94,9 @@ for coluna in df.columns:
         'Freq. Absoluta': frq_abs,
         'Freq. Relativa': frq_rel,
         'Freq. Acumulada': frq_acm,
-        'Freq. Máxima': frq_max,
-        'Valor de Freq. Máxima': val_frq_max
     }
+    print(f'Freq. Máxima: {frq_max}')
+    print(f'Valor com freq. máxima: {val_frq_max}')
     tabela = pd.DataFrame(frequencias)
     print(tabela)
     # monta gráficos 
@@ -110,13 +110,14 @@ for coluna in df.columns:
     plt.xlabel('Valor')
     plt.ylabel('Categoria')
     plt.show()
-    plt.hist(coluna, bins=5)
+    plt.hist(series, bins=5)
     plt.xlabel(f'{coluna}')
     plt.ylabel("Frequência")
     plt.title(f'Frequências de {coluna}')
     plt.show()
-    # plt.boxplot(coluna)
-    # plt.ylabel(f'{coluna}')
-    # plt.title(f'Distribuição de {coluna}')
-    # plt.show()
+    if series.dtype in ['int64', 'float64']:
+        plt.boxplot(series)
+        plt.ylabel(f'{coluna}')
+        plt.title(f'Distribuição de {coluna}')
+        plt.show()
 
